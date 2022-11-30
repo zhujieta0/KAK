@@ -58,13 +58,13 @@ jobs:
           #cat *.json >> xray.json
           #set +e ;for i in $(cat output/active_urls.txt ); do ./xray webscan --plugins xss,sqldet --basic-crawler $i --json-output xray.html;done
           ./xray
-          /usr/bin/nohup ./xray webscan --plugins xss,sqldet --listen 127.0.0.1:7777  --html-output xray.html &
+          /usr/bin/nohup ./xray webscan --plugins xss,sqldet --listen 127.0.0.1:7777  --text-output xray.txt &
         shell: bash
 
       - name: KAK scanns
         run: |
           set +e ;for i in $(cat output/active_urls.txt ); do katana -u $i -aff -H -jc -d 7 -proxy http://127.0.0.1:7777; done
-          cat xray.html
+          cat xray.txt
         shell: bash
 
       - name: Sorting the output results
@@ -75,7 +75,7 @@ jobs:
       - name: Create local changes
         run: |
           git add output/active_urls.txt
-          git add output/xray.html
+          git add output/xray.txt
       - name: Commit results to Github
         run: |
           git config --local user.email "jinbao1986@qq.com"
