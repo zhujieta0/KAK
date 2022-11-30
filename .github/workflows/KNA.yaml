@@ -1,7 +1,7 @@
 name: KNK
 
-on: [push]
-#    workflow_dispatch:
+on: 
+  workflow_dispatch:
 jobs:
   job_1:
     name: basic env
