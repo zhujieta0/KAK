@@ -58,7 +58,7 @@ jobs:
           #cat *.json >> xray.json
           #set +e ;for i in $(cat output/active_urls.txt ); do ./xray webscan --plugins xss,sqldet --basic-crawler $i --json-output xray.html;done
           ./xray
-          /usr/bin/nohup ./xray webscan --plugins xss,sqldet --listen 127.0.0.1:7777  --html-output xray.html
+          /usr/bin/nohup ./xray webscan --plugins xss,sqldet --listen 127.0.0.1:7777  --html-output xray.html &
         shell: bash
 
       - name: KAK scanns
