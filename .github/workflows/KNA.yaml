@@ -33,12 +33,12 @@ jobs:
           go install -v github.com/projectdiscovery/katana/cmd/katana@latest
           go install -v github.com/tomnomnom/anew@latest
           go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
-	  
+
           #go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@latest
           #go install -v github.com/projectdiscovery/naabu/v2/cmd/naabu@latest
           #go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
           #go install -v github.com/projectdiscovery/mapcidr/cmd/mapcidr@latest
-          
+
         shell: bash
 
       - name: Running substr3 and httpx for HTTP webservers probbing
@@ -57,21 +57,21 @@ jobs:
           #set +e ;for i in $(cat output/active_urls.txt ); do ./xray webscan --plugins xss,sqldet --basic-crawler $i --json-output `date +%Y%m%d%H%M%S`.json;done
           #cat *.json >> xray.json
           #set +e ;for i in $(cat output/active_urls.txt ); do ./xray webscan --plugins xss,sqldet --basic-crawler $i --json-output xray.html;done
-          	  
+
           ./xray webscan --plugins xss,sqldet --listen 127.0.0.1:7777  --html-output xray.html
-	  
+
         shell: bash
-	
+
       - name: KAK scanns
         run: |
           set +e ;for i in $(cat output/active_urls.txt ); do ./katana -u $i -aff -H -jc -d 7 -proxy http://127.0.0.1:7777; done
         shell: bash
-	
+
       - name: Sorting the output results
         run: |
           find output -type f -exec sort {} -o {} \;
         shell: bash
-	
+
       - name: Create local changes
         run: |
           git add output/active_urls.txt
