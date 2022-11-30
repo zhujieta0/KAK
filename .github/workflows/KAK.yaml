@@ -16,10 +16,10 @@ jobs:
 
       - name: Setup Dependencies
         run: |
-          which nohup
+          nohup --version
           sudo apt-get update
           sudo apt-get install libpcap-dev 
-          sudo apt-get install nohup
+          #sudo apt-get install nohup
       - name: Cache Go
         id: cache-go
         uses: actions/cache@v2
@@ -58,7 +58,7 @@ jobs:
           #cat *.json >> xray.json
           #set +e ;for i in $(cat output/active_urls.txt ); do ./xray webscan --plugins xss,sqldet --basic-crawler $i --json-output xray.html;done
           ./xray
-          hohub ./xray webscan --plugins xss,sqldet --listen 127.0.0.1:7777  --html-output xray.html
+          hohup ./xray webscan --plugins xss,sqldet --listen 127.0.0.1:7777  --html-output xray.html
         shell: bash
 
       - name: KAK scanns
